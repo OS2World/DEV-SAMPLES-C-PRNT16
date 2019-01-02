@@ -1,0 +1,16 @@
+BASE=prnt16
+#DEV=-DDEV
+
+!IFDEF DEV
+PROGTYPE=PM
+!ELSE
+PROGTYPE=VIO
+!ENDIF
+
+$(BASE).exe: $*.obj
+     link /CO /A:16 /MAP /PMTYPE:$(PROGTYPE) /ST:8192 $*,,,,;
+
+$(BASE).obj: $*.c
+     cl -c -MT -Gs -W3 -Od -Zip $(DEV) $*.c
+
+
